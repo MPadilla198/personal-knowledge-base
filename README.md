@@ -3,6 +3,8 @@
 
 
 ## Scripts
+First, run `npm install` to initialize npm libraries.
+
 To build, use `npm run build`.
 
 To deploy dev server, use `npm run dev`.
