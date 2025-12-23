@@ -1,5 +1,5 @@
 {
-  "name": "webpack-template",
+  "name": "personal-knowledge-base",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [],
-  "author": "",
+  "author": "Miguel Padilla <mp7228757@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^7.1.2",
