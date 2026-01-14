@@ -2,15 +2,30 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: {
+        main: "./src/main.js",
+        sql: "./src/sql.js"
+    },
     output: {
-        filename: "main.js",
+        filename: "[name].js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/template.html",
+            template: "./src/index.html",
+            filename: "index.html",
+            chunks: ['main'], // Inject only the 'main' bundle
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/python_automation/index.html",
+            filename: "python_automation.html",
+            chunks: ['main'], // Inject only the 'main' bundle
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/sql/index.html",
+            filename: "sql.html",
+            chunks: ['main', 'sql'], // Inject the 'main' and 'sql' bundles
         }),
     ],
     module: {
