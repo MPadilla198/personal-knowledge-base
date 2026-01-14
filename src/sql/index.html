@@ -1,12 +1,192 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>SQL</title>
+    <style>
+        p {
+            margin-bottom: 0;
+        }
+
+        pre {
+            margin-top: 0;
+            background-color: #EEEEEE;
+            border-radius: 8px;
+            width: 50vw;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 48px 0;
+        }
+
+        th {
+            background-color: rgb(148, 204, 253);
+        }
+
+        td {
+            background-color: aliceblue;
+        }
+
+        td,
+        th {
+            padding: 8px 24px;
+            border-bottom: 1px solid black;
+            max-width: 60ch;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        caption {
+            caption-side: bottom;
+            padding: 10px;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
-    <a href="index.html">Home</a>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://sqlbolt.com/">source</a></li>
+    </ul>
+
+    <p>Select query for specific columns</p>
+    <pre><code>
+    <strong>SELECT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable<strong>;</strong>
+    </code></pre>
+
+    <p>Select query for all columns</p>
+    <pre><code>
+    <strong>SELECT</strong> *
+    <strong>FROM</strong> mytable<strong>;</strong>
+    </code></pre>
+
+    <p>Select query with constraints</p>
+    <pre><code>
+    <strong>SELECT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> <em>condition</em>
+        <strong>AND/OR</strong> <em>another_condition</em>
+        <strong>AND/OR</strong> ...<strong>;</strong>
+    </code></pre>
+
+    <table>
+        <caption>
+            Operators for numerical data (integers and floating point numbers)
+        </caption>
+        <tr>
+            <th>Operator</th>
+            <th>Condition</th>
+            <th>SQL Example</th>
+        </tr>
+        <tr>
+            <td>=,!=,&lt,&lt=,&gt,&gt=</td>
+            <td>Standard numerical operators</td>
+            <td>col_name <b>!=</b> 4</td>
+        </tr>
+        <tr>
+            <td>BETWEEN...AND...</td>
+            <td>Number is within range of two values (inclusive)</td>
+            <td>col_name <b>BETWEEN</b> 1.5 <b>AND</b> 10.5</td>
+        </tr>
+        <tr>
+            <td>NOT BETWEEN...AND...</td>
+            <td>Number is not within the range of two values (inclusive)</td>
+            <td>col_name <b>NOT BETWEEN</b> 1 <b>AND</b> 10</td>
+        </tr>
+        <tr>
+            <td>IN (...)</td>
+            <td>Number exists in a list</td>
+            <td>col_name <b>IN</b> (2,4,6)</td>
+        </tr>
+        <tr>
+            <td>NOT IN (...)</td>
+            <td>Number does not exist in a list</td>
+            <td>col_name <b>NOT IN</b> (1,3,5)</td>
+        </tr>
+    </table>
+
+    <table>
+        <caption>
+            Operators for text data
+        </caption>
+        <tr>
+            <th>Operator</th>
+            <th>Condition</th>
+            <th>SQL Example</th>
+        </tr>
+        <tr>
+            <td>=</td>
+            <td>Case sensitive exact string comparison (<strong>notice the single equals</strong>)</td>
+            <td>col_name <b>=</b> "abc"</td>
+        </tr>
+        <tr>
+            <td>!= or &lt&gt</td>
+            <td>Case sensitive exact string inequality comparison</td>
+            <td>col_name <b>!=</b> "abcd"</td>
+        </tr>
+        <tr>
+            <td>LIKE</td>
+            <td>Case insensitive exact string comparison</td>
+            <td>col_name <b>LIKE</b> "ABC"</td>
+        </tr>
+        <tr>
+            <td>NOT LIKE</td>
+            <td>Case insensitive exact string inequality comparison</td>
+            <td>col_name <b>NOT LIKE</b> "ABCD"</td>
+        </tr>
+        <tr>
+            <td>%</td>
+            <td>Used anywhere in a string to match a sequence of zero or more characters (only with LIKE or NOT LIKE)</td>
+            <td>col_name <strong>LIKE</strong> "%AT%" (matches "AT", "ATTIC", "CAT" or even "BATS")</td>
+        </tr>
+        <tr>
+            <td>_</td>
+            <td>Used anywhere in a string to match a single character (only with LIKE or NOT LIKE)</td>
+            <td>col_name <strong>LIKE</strong> "AN_" (matches "AND", but not "AN")</td>
+        </tr>
+        <tr>
+            <td>IN (...)</td>
+            <td>String exists in a list</td>
+            <td>col_name <strong>IN</strong> ("A", "B", "C")</td>
+        </tr>
+        <tr>
+            <td>NOT IN (...)</td>
+            <td>String does not exist in a list</td>
+            <td>col_name <strong>NOT IN</strong> ("D", "E", "F")</td>
+        </tr>
+    </table>
+
+    <p>Select query with unique results</p>
+    <pre><code>
+    <strong>SELECT</strong> <strong>DISTINCT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> <em>condition(s)</em><strong>;</strong>
+    </code></pre>
+
+    <p>Select query with ordered results</p>
+    <pre><code>
+    <strong>SELECT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> <em>condition(s)</em>
+    <strong>ORDER BY</strong> column <strong>ASC/DESC</strong><strong>;</strong>
+    </code></pre>
+
+    <p>Select query with limited rows</p>
+    <pre><code>
+    <strong>SELECT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> <em>condition(s)</em>
+    <strong>ORDER BY</strong> column <strong>ASC/DESC</strong>
+    <strong>LIMIT</strong> num_list <strong>OFFSET</strong> num_offset<strong>;</strong>
+    </code></pre>
 </body>
+
 </html>
