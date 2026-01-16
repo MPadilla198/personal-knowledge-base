@@ -15,7 +15,8 @@
             margin-top: 0;
             background-color: #EEEEEE;
             border-radius: 8px;
-            width: 50vw;
+            padding-right: 32px;
+            width: fit-content;
         }
     </style>
 </head>
@@ -23,7 +24,7 @@
 <body>
     <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="https://sqlbolt.com/">source</a></li>
+        <li><a href="https://sqlbolt.com/">Source</a></li>
     </ul>
 
     <h1>SQL</h1>
@@ -157,8 +158,136 @@
     <strong>FROM</strong> mytable
     <strong>WHERE</strong> <em>condition(s)</em>
     <strong>ORDER BY</strong> column <strong>ASC/DESC</strong>
-    <strong>LIMIT</strong> num_list <strong>OFFSET</strong> num_offset<strong>;</strong>
+    <strong>LIMIT</strong> num_limit <strong>OFFSET</strong> num_offset<strong>;</strong>
     </code></pre>
+
+    <p>Select query with INNER JOIN on multiple tables</p>
+    <pre><code>
+    <strong>SELECT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable
+    <strong>INNER JOIN</strong> another_table
+        <strong>ON</strong> mytable.id = another_table.id
+    <strong>WHERE</strong> <em>condition(s)</em>
+    <strong>ORDER BY</strong> column <strong>ASC/DESC</strong>
+    <strong>LIMIT</strong> num_limit <strong>OFFSET</strong> num_offset<strong>;</strong>
+    </code></pre>
+
+    <p>Select query with LEFT/RIGHT/FULL JOINs on multiple tables</p>
+    <pre><code>
+    <strong>SELECT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable
+    <strong>INNER/LEFT/RIGHT/FULL JOIN</strong> another_table
+        <strong>ON</strong> mytable.id = another_table.id
+    <strong>WHERE</strong> <em>condition(s)</em>
+    <strong>ORDER BY</strong> column <strong>ASC/DESC</strong>
+    <strong>LIMIT</strong> num_limit <strong>OFFSET</strong> num_offset<strong>;</strong>
+    </code></pre>
+
+    <p>Select query with constraints on NULL values</p>
+    <pre><code>
+    <strong>SELECT</strong> column, another_column, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> column <strong>IS/IS NOT NULL</strong>
+    <strong>AND/OR</strong> <em>another_condition</em>
+    <strong>AND/OR</strong> ...<strong>;</strong>
+    </code></pre>
+
+    <p>Example query with expressions</p>
+    <pre><code>
+    <strong>SELECT</strong> particle_speed / 2.0 <strong>AS</strong> half_particle_speed
+    <strong>FROM</strong> physics_data
+    <strong>WHERE ABS</strong>(particle_position) * 10.0 > 500<strong>;</strong>
+    </code></pre>
+
+    <p>Select query with expression aliases</p>
+    <pre><code>
+    <strong>SELECT</strong> <em>col_expression</em> <strong>AS</strong> expr_description, ...
+    <strong>FROM</strong> mytable<strong>;</strong>
+    </code></pre>
+
+    <p>Example query with both column and table name aliases</p>
+    <pre><code>
+    <strong>SELECT</strong> column <strong>AS</strong> better_column_name, ...
+    <strong>FROM</strong> a_long_widgets_table_name <strong>AS</strong> mywidgets
+    <strong>INNER JOIN</strong> widget_sales
+        <strong>ON</strong> mywidgets.id = widget_sales.widget_id<strong>;</strong>
+    </code></pre>
+
+    <p>Select query with aggregate functions over all rows</p>
+    <pre><code>
+    <strong>SELECT AGG_FUNC</strong>(<em>column_or_expression</em>) <strong>AS</strong> aggregate_description, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> <em>constraint_expression</em><strong>;</strong>
+    </code></pre>
+
+    <table>
+        <tr>
+            <th>Function</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><strong>COUNT</strong>(*),<br><strong>COUNT</strong>(column)</td>
+            <td>A common function used to counts the number of rows in the group if no column name is specified. Otherwise, count the number of rows in the group with non-NULL values in the specified column.</td>
+        </tr>
+        <tr>
+            <td><strong>MIN</strong>(column)</td>
+            <td>Finds the smallest numerical value in the specified column for all rows in the group.</td>
+        </tr>
+        <tr>
+            <td><strong>MAX</strong>(column)</td>
+            <td>Finds the largest numerical value in the specified column for all rows in the group.</td>
+        </tr>
+        <tr>
+            <td><strong>AVG</strong>(column)</td>
+            <td>Finds the average numerical value in the specified column for all rows in the group.</td>
+        </tr>
+        <tr>
+            <td><strong>SUM</strong>(column)</td>
+            <td>Finds the sum of all numerical values in the specified column for the rows in the group.</td>
+        </tr>
+    </table>
+
+    <p>Select query with aggregate functions over groups</p>
+    <pre><code>
+    <strong>SELECT AGG_FUNC</strong>(<em>column_or_expression</em>) <strong>AS</strong> aggregate_description, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> <em>constraint_expression</em>
+    <strong>GROUP BY</strong> column<strong>;</strong>
+    </code></pre>
+
+    <p>Select query with HAVING constraint</p>
+    <pre><code>
+    <strong>SELECT</strong> group_by_column, <strong>AGG_FUNC</strong>(<em>column_or_expression</em>) <strong>AS</strong> aggregate_result_alias, ...
+    <strong>FROM</strong> mytable
+    <strong>WHERE</strong> <em>condition</em>
+    <strong>GROUP BY</strong> column
+    <strong>HAVING</strong> <em>group_condition</em><strong>;</strong>
+    </code></pre>
+
+    <p>Complete SELECT query</p>
+    <pre><code>
+    <strong>SELECT DISTINCT</strong> column, <strong>AGG_FUNC</strong>(<em>column_or_expression</em>), ...
+    <strong>FROM</strong> mytable
+    <strong>JOIN</strong> another_table
+        <strong>ON</strong> mytable.column = another_table.column
+    <strong>WHERE</strong> <em>constraint_expression</em>
+    <strong>GROUP BY</strong> column
+    <strong>HAVING</strong> <em>constraint_expression</em>
+    <strong>ORDER BY</strong> column <strong>ASC/DESC</strong>
+    <strong>LIMIT</strong> num_limit <strong>OFFSET</strong> num_offset<strong>;</strong>
+    </code></pre>
+
+    <p>Select Query Order of Execution</p>
+    <ol>
+        <li><strong>FROM</strong> and <strong>JOIN</strong>s</li>
+        <li><strong>WHERE</strong></li>
+        <li><strong>GROUP BY</strong></li>
+        <li><strong>HAVING</strong></li>
+        <li><strong>SELECT</strong></li>
+        <li><strong>DISTINCT</strong></li>
+        <li><strong>ORDER BY</strong></li>
+        <li><strong>LIMIT / OFFSET</strong></li>
+    </ol>
 </body>
 
 </html>
