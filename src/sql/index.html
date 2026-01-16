@@ -288,6 +288,38 @@
         <li><strong>ORDER BY</strong></li>
         <li><strong>LIMIT / OFFSET</strong></li>
     </ol>
+
+    <p>Insert statement with values for all columns</p>
+    <pre><code>
+    <strong>INSERT INTO</strong> mytable
+    <strong>VALUES</strong> (value_or_expr, another_value_or_expr, ...),
+           (value_or_expr_2, another_value_or_expr_2, ...),
+           ...<strong>;</strong>
+    </code></pre>
+
+    <p>Insert statement with specific columns</p>
+    <pre><code>
+    <strong>INSERT INTO</strong> mytable
+    (column, another_column, ...)
+    <strong>VALUES</strong> (value_or_expr, another_value_or_expr, ...),
+           (value_or_expr_2, another_value_or_expr_2, ...),
+           ...<strong>;</strong>
+    </code></pre>
+
+    <p>Update statement with values</p>
+    <pre><code>
+    <strong>UPDATE</strong> mytable
+    <strong>SET</strong> column = value_or_expr,
+        other_column = another_value_or_expr,
+        ...
+    <strong>WHERE</strong> <em>condition</em><strong>;</strong>
+    </code></pre>
+
+    <p>Delete statement with condition</p>
+    <pre><code>
+    <strong>DELETE FORM</strong> mytable
+    <strong>WHERE</strong> <em>condition</em><strong>;</strong>
+    </code></pre>
 </body>
 
 </html>
